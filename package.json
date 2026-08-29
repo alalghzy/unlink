@@ -1,0 +1,25 @@
+{
+  "name": "unlink",
+  "version": "1.0.0",
+  "private": true,
+  "description": "UNLINK — bypass shortlink otomatis: param-decode, form-token-decode, organic-follow, browser-headless. Backend Node/Express + frontend React (Vite).",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "setup": "npm install && npm run build",
+    "build": "npm --workspace frontend run build",
+    "start": "npm --workspace backend start",
+    "dev:server": "npm --workspace backend run dev",
+    "dev:web": "npm --workspace frontend run dev",
+    "dev": "concurrently -n server,web -c blue,green \"npm run dev:server\" \"npm run dev:web\"",
+    "tunnel": "cloudflared tunnel --url http://localhost:3000"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

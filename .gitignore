@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+frontend/dist/
+.vite/
+
+# env & secrets
+.env
+.env.local
+.env.*.local
+*.env
+
+# logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/
+.idea/
+*.swp
+
+# temp / debug
+tmp/
+debug-*.js
+*.bin
+range_test.bin

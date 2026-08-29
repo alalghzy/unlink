@@ -1,0 +1,332 @@
+/* ============================================================
+   UNLINK — PIXEL ART / RETRO 8-BIT THEME (compact)
+   Palet terinspirasi gaya NES/komputer retro. Using sharp corners,
+   chunky pixel borders, pixel fonts, scanline + grid background.
+   ============================================================ */
+
+:root {
+  /* Palet biru-navy (user: colorhunt #F9F7F7 #DBE2EF #3F72AF #112D4E)
+     Dipertahankan dark mode: navy jadi latar, biru jadi aksen. */
+  --navy:      #112d4e;   /* latar utama (deep navy)  */
+  --navy-2:    #1a3a5f;   /* panel / inner            */
+  --navy-3:    #24496f;   /* input / solid accent     */
+  --blue:      #3f72af;   /* aksen biru               */
+  --blue-soft: #dbe2ef;   /* biru muda / text sekunder */
+  --paper:     #f9f7f7;   /* putih / text utama       */
+
+  --bg-0:      var(--navy);     /* deepest bg            */
+  --bg-1:      var(--navy-2);   /* panel bg              */
+  --bg-2:      var(--navy-3);   /* input bg / inner      */
+  --ink:       var(--paper);    /* text utama            */
+  --muted:     #a9bcd6;         /* text redup (blue-soft dipelankan) */
+  --accent:    var(--blue);     /* aksen biru            */
+  --accent2:   #6d94cc;         /* biru muda aksen       */
+  --cyan:      var(--blue-soft);/* biru muda / highlight */
+  --green:     #6cd6a1;         /* sukses                */
+  --red:       #ff8080;         /* error                 */
+  --pink:      #8fabd4;         /* pink-soft (biru-abu)  */
+  --purple:    var(--blue);     /* ungu -> biru          */
+  --border-a:  #2f537a;         /* border panel          */
+  --border-b:  #5b83ad;         /* border terang         */
+
+  --pixel-shadow: 0 6px 0 rgba(0,0,0,.55);
+  --pixel-shadow-sm: 0 3px 0 rgba(0,0,0,.55);
+
+  /* "Press Start 2P" for headings/logo; "VT323" readable pixel font for body */
+  --font-title: "Press Start 2P", monospace;
+  --font-body:  "VT323", "Courier New", monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background:
+    /* soft radial glow (biru halus) */
+    radial-gradient(900px 600px at 50% -60px, rgba(63,114,175,.28), transparent 70%),
+    /* dither / noise dots halus */
+    radial-gradient(rgba(255,255,255,.03) 1px, transparent 1px) 0 0 / 9px 9px,
+    /* gradien navy elegan (atas lebih terang -> bawah lebih gelap) */
+    linear-gradient(180deg, #16355c 0%, #0e2440 55%, #0a1a30 100%);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 20px;      /* font pixel readable cukup besar */
+  line-height: 1.3;
+  min-height: 100vh;
+  -webkit-font-smoothing: none;   /* honest pixel edge */
+}
+
+/* ============ Layout ============ */
+.app { max-width: 880px; margin: 0 auto; padding: 22px 14px 70px; }
+
+/* ============ Navbar ============ */
+.navbar {
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0)) , var(--bg-1);
+  border: 1px solid var(--border-b);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  padding: 14px 18px;
+  margin-bottom: 22px;
+  border-radius: 10px;
+}
+.brand { display: flex; align-items: center; }
+.brand-name {
+  font-family: var(--font-title); font-size: 16px; line-height: 1.1;
+  color: var(--ink); letter-spacing: 2px;
+}
+.nav-stats { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 15px; }
+.nav-stats b { color: var(--accent); font-weight: normal; }
+.divider { width: 2px; height: 22px; background: var(--border-a); }
+
+/* ============ Hero ============ */
+.hero { text-align: center; padding: 24px 0 14px; }
+.hero-title {
+  font-family: var(--font-title); font-size: 26px; line-height: 1.4;
+  font-weight: normal; margin: 12px 0; letter-spacing: 0;
+}
+.grad {
+  background: linear-gradient(90deg, #3f72af, #d2b48c);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  text-shadow: 0 2px 14px rgba(63,114,175,.35);
+}
+
+/* ============ Panel ============ */
+.panel { display: flex; flex-direction: column; gap: 16px; }
+.panel.hidden { display: none; }
+
+/* ============ Input Card ============ */
+.input-card {
+  background: rgba(255,255,255,.03);
+  border: 1px solid var(--border-b);
+  box-shadow: 0 16px 40px rgba(0,0,0,.3);
+  padding: 12px; position: relative; border-radius: 12px;
+}
+.input-row { display: flex; gap: 10px; align-items: stretch; }
+.input-row input, .sub-block input, .title-row input {
+  flex: 1; min-width: 0;
+  font-family: var(--font-body); font-size: 20px;
+  color: var(--ink); background: rgba(0,0,0,.25);
+  border: 1px solid var(--border-b); padding: 12px 14px; outline: none;
+  border-radius: 8px;
+}
+input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(63,114,175,.25); }
+input::placeholder { color: var(--muted); }
+
+button.primary {
+  font-family: var(--font-title); font-size: 12px; color: #fff;
+  background: linear-gradient(180deg, #4d82c4, #3f72af);
+  border: 1px solid #112d4e; padding: 14px 20px;
+  cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.25);
+  border-radius: 8px; white-space: nowrap; line-height: 1.2;
+  transition: transform .06s ease, box-shadow .06s ease;
+}
+button.primary:hover { filter: brightness(1.08); }
+button.primary:active { transform: translateY(3px); box-shadow: 0 1px 4px rgba(0,0,0,.3); }
+button.primary:disabled { opacity: .5; cursor: not-allowed; }
+
+button.ghost {
+  font-family: var(--font-title); font-size: 10px; color: var(--blue-soft);
+  background: rgba(0,0,0,.2); border: 1px solid var(--border-b); padding: 12px 14px;
+  cursor: pointer; white-space: nowrap; border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,.25);
+}
+button.ghost:active { transform: translateY(2px); box-shadow: none; }
+
+select {
+  font-family: var(--font-title); font-size: 11px; color: var(--ink);
+  background: var(--bg-0); border: 2px solid var(--border-a); padding: 12px 8px;
+  border-radius: 6px;
+}
+
+.detected-badge { margin-top: 10px; font-family: var(--font-body); font-size: 18px; color: var(--green); }
+
+.status {
+  font-family: var(--font-body); font-size: 18px;
+  padding: 10px 12px; border: 2px solid var(--border-a); background: var(--bg-1);
+}
+.status.loading { color: var(--muted); }
+.status.ok { color: var(--green); border-color: var(--green); }
+.status.error { color: var(--red); border-color: var(--red); }
+
+/* ============ Result Card ============ */
+.result-card {
+  background: rgba(255,255,255,.03); border: 1px solid var(--border-b);
+  box-shadow: 0 16px 40px rgba(0,0,0,.3); padding: 16px; border-radius: 12px;
+}
+.result-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.result-badge { font-family: var(--font-title); font-size: 12px; color: var(--green); }
+.result-url {
+  font-family: var(--font-body); font-size: 19px; color: var(--paper);
+  background: rgba(0,0,0,.25); border: 1px solid var(--border-b);
+  padding: 12px; margin-bottom: 10px; word-break: break-all; border-radius: 8px;
+}
+.result-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+.tag {
+  font-family: var(--font-title); font-size: 9px; color: var(--blue-soft);
+  background: rgba(63,114,175,.18); border: 1px solid var(--border-b); padding: 6px 8px; border-radius: 6px;
+}
+.logs { margin-top: 12px; }
+.logs summary { cursor: pointer; font-family: var(--font-title); font-size: 10px; color: var(--muted); }
+.logs pre {
+  font-family: var(--font-body); font-size: 16px; color: var(--muted);
+  background: var(--bg-0); border: 2px solid var(--border-a); padding: 10px; overflow: auto;
+}
+
+/* ============ Stream sub-block ============ */
+.sub-block { display: flex; flex-direction: column; gap: 10px; }
+.title-row { gap: 10px; }
+
+.dropdown { background: var(--bg-1); border: 2px solid var(--border-b); margin-top: 4px; box-shadow: var(--pixel-shadow-sm); }
+.suggest-item {
+  font-family: var(--font-body); font-size: 18px; text-align: left; width: 100%;
+  background: transparent; color: var(--ink); border: none; border-bottom: 2px solid var(--border-a);
+  padding: 10px 12px; cursor: pointer;
+}
+.suggest-item:last-child { border-bottom: none; }
+.suggest-item:hover { background: rgba(78,230,208,.12); }
+
+/* ============ Player ============ */
+.player-wrap { background: #000; border: 3px solid var(--border-b); box-shadow: var(--pixel-shadow); }
+.video-player { width: 100%; display: block; background: #000; }
+.player-actions { display: flex; gap: 8px; align-items: center; padding: 10px; flex-wrap: wrap; }
+.player-actions button {
+  font-family: var(--font-title); font-size: 9px; color: var(--accent);
+  background: var(--bg-0); border: 2px solid var(--accent); padding: 8px 10px; cursor: pointer;
+}
+.player-actions span { color: var(--muted); font-size: 16px; font-variant-numeric: tabular-nums; }
+
+/* ============ History ============ */
+.history { margin-top: 8px; }
+.history h3 { font-family: var(--font-title); font-size: 11px; color: var(--accent); margin: 16px 0 10px; }
+.history ul { list-style: none; padding: 0; margin: 0; }
+.history li {
+  display: flex; justify-content: space-between; gap: 8px;
+  background: var(--bg-1); border: 2px solid var(--border-a);
+  padding: 8px 12px; margin-bottom: 8px; font-size: 17px;
+}
+.linklike { background: none; border: none; color: var(--pink); text-align: left; cursor: pointer; padding: 0; word-break: break-all; }
+.time { color: var(--muted); white-space: nowrap; text-align: right; }
+
+/* ============ Footer ============ */
+footer { margin-top: 40px; text-align: center; }
+.credit { font-family: var(--font-body); font-size: 16px; color: var(--muted); border-top: 1px solid var(--border-a); padding-top: 14px; }
+
+/* ============ Chibi pixel character (idle animation) ============
+   Gaya: chibi hoodie — kepala besar menyatu badan (kapsul), outline hitam
+   tebal, dot eyes, patch dada, lengan+kaki berbentuk nubs, shading 2 nada. */
+.chibi {
+  --base: #d2b48c;  /* kostum champagne/gold elegan (kontras dgn navy) */
+  --dark: #b99b6e;  /* shading gold gelap */
+  --out: #112d4e;   /* outline navy pudar */
+  position: relative;
+  width: 132px; height: 156px;
+  margin: 20px auto 4px; cursor: pointer;
+  image-rendering: pixelated; user-select: none;
+  /* idle: bernafas (naik-turun halus) */
+  animation: chibi-breathe 2.6s ease-in-out infinite;
+  transform-origin: 50% 92%;
+}
+.chibi.boop { animation: chibi-boop .55s steps(6) forwards; }
+
+/* ===== telinga ===== */
+.ch-ears { position: absolute; left: 0; right: 0; top: -4px; height: 34px; z-index: 1; }
+.ch-ear {
+  position: absolute; top: 0; width: 26px; height: 40px;
+  background: var(--base); border: 4px solid var(--out);
+  box-shadow: inset 0 -8px 0 rgba(0,0,0,.12);
+}
+.ch-ear::after { content: ""; position: absolute; left: 6px; top: 7px; width: 9px; height: 16px; background: var(--dark); }
+.ch-ear-l { left: 50%; transform: translateX(-64px) rotate(-8deg); }
+.ch-ear-r { right: 50%; transform: translateX(64px) rotate(8deg); }
+
+/* ===== badan hoodie (kapsul) ===== */
+.ch-body {
+  position: absolute; left: 50%; top: 26px; transform: translateX(-50%);
+  width: 116px; height: 116px;
+  background: var(--base);
+  border: 4px solid var(--out);
+  border-radius: 58px 58px 26px 26px; /* kepala besar membulat, dasar agak rata */
+  box-shadow: inset 0 -16px 0 var(--dark), 6px 8px 0 rgba(0,0,0,.35);
+  overflow: hidden;
+}
+
+/* ===== wajah ===== */
+.ch-face { position: absolute; left: 0; right: 0; top: 22px; height: 44px; }
+.eye { position: absolute; top: 0; width: 12px; height: 14px; background: var(--out); border-radius: 2px; }
+.eye.l { left: 32px; }
+.eye.r { right: 32px; }
+.mouth { position: absolute; left: 50%; transform: translateX(-50%); top: 24px; width: 16px; height: 5px; background: var(--out); border-radius: 0 0 8px 8px; }
+
+/* blink mata */
+.eye { animation: chibi-blink 4.2s steps(1) infinite; }
+.eye.r { animation-delay: 0s; }
+
+/* ===== patch dada (logo area) ===== */
+.ch-bib {
+  position: absolute; left: 50%; transform: translateX(-50%); bottom: 22px;
+  width: 34px; height: 30px; background: #fff; border: 4px solid var(--out);
+}
+.ch-bib::after { content: ""; position: absolute; inset: 7px 9px; background: var(--dark); }
+
+/* ===== lengan nubs ===== */
+.ch-arm {
+  position: absolute; top: 92px; width: 30px; height: 40px;
+  background: var(--base); border: 4px solid var(--out);
+  box-shadow: inset 0 -8px 0 rgba(0,0,0,.12), 3px 4px 0 rgba(0,0,0,.25);
+  transform-origin: 50% 14%;
+}
+.ch-arm-l { left: 50%; transform: translateX(-76px); animation: chibi-arm-l 2.6s ease-in-out infinite; }
+.ch-arm-r { right: 50%; transform: translateX(76px); animation: chibi-arm-r 2.6s ease-in-out infinite; }
+
+/* ===== kaki nubs ===== */
+.ch-foot {
+  position: absolute; bottom: 6px; width: 30px; height: 26px;
+  background: var(--dark); border: 4px solid var(--out);
+  box-shadow: inset 0 -6px 0 rgba(0,0,0,.12);
+}
+.ch-foot-l { left: 50%; transform: translateX(-52px); }
+.ch-foot-r { right: 50%; transform: translateX(52px); }
+
+/* ===== bayangan ===== */
+.ch-shadow {
+  position: absolute; left: 50%; bottom: -2px; transform: translateX(-50%);
+  width: 96px; height: 14px; background: rgba(0,0,0,.4); border-radius: 50%;
+  filter: blur(1px); z-index: -1;
+  animation: chibi-shadow 2.6s ease-in-out infinite;
+}
+
+@keyframes chibi-breathe {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(-5px) scaleY(1.012); }
+}
+@keyframes chibi-blink { 0%, 90%, 100% { transform: scaleY(1); } 93%, 96% { transform: scaleY(.08); } }
+@keyframes chibi-arm-l {
+  0%, 100% { transform: translateX(-76px) rotate(0deg); }
+  50% { transform: translateX(-76px) rotate(-5deg); }
+}
+@keyframes chibi-arm-r {
+  0%, 100% { transform: translateX(76px) rotate(0deg); }
+  50% { transform: translateX(76px) rotate(5deg); }
+}
+@keyframes chibi-boop {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-28px) scale(1.03); }
+  60% { transform: translateY(-12px); }
+  80% { transform: translateY(-3px); }
+}
+@keyframes chibi-shadow {
+  0%, 100% { transform: translateX(-50%) scaleX(1); opacity: .4; }
+  50% { transform: translateX(-50%) scaleX(.7); opacity: .25; }
+}
+
+/* Responsive */
+@media (max-width: 560px) {
+  .hero-title { font-size: 19px; }
+  .input-row { flex-direction: column; align-items: stretch; }
+  .input-row button { width: 100%; }
+  .title-row { flex-direction: column; }
+  .title-row select { width: 100%; }
+  .nav-stats .divider, .nav-stats .stat { display: none; }
+  .tab { font-size: 10px; padding: 12px 4px; }
+}

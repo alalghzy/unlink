@@ -1,0 +1,10 @@
+# wrangler.toml — UNLINK frontend (Cloudflare Pages)
+# Backend tetap lokal; frontend memanggilnya via tunnel (BACKEND_URL).
+name = "unlink"
+compatibility_date = "2026-08-10"
+pages_build_output_dir = "dist"
+
+# Runtime var — frontend membacanya via Pages Function (/api/config).
+# Isi dengan URL cloudflared tunnel (mis. https://xxxx.trycloudflare.com).
+[vars]
+BACKEND_URL = "https://placeholder.trycloudflare.com"
